@@ -60,12 +60,12 @@ public class ComPortHandler
             else
             {
                 //Handle the case when port is not open.
-                ErrorOccurred?.Invoke(this, new Exception("COM port is not open."));
+                ErrorOccurred?.Invoke(this, new Exception("COM port is closed."));
             }
         }
         catch (Exception ex)
         {
-            ErrorOccurred?.Invoke(this, ex); // Raise the error event
+            ErrorOccurred?.Invoke(this, ex);
         }
     }
 }

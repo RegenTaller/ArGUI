@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace ArduinoInterface
         int Flag = 1;
 
         string messageToSend = "";
+
+        bool COMFlag = true;
 
         private ComPortHandler _COMport;
         public Form1()
@@ -52,9 +55,8 @@ namespace ArduinoInterface
         {
             label1.Invoke((MethodInvoker)delegate {
 
+                label1.Text = $"Error: {e.Message}"; 
 
-                label1.Text = $"Error: {e.Message}";
-    
             });
 
         }
@@ -76,10 +78,43 @@ namespace ArduinoInterface
         private void button1_Click(object sender, EventArgs e)
         {
 
-            messageToSend = textBox2.Text;
+            if (textBox2.Text == "")
+            {
+                messageToSend = "NaN";
+                textBox2.Text = "";
+            }
+            else { messageToSend = textBox2.Text; }
+
             _COMport.SendData(messageToSend);
             textBox2.Text = "";
+
             //_COMport.WriteLine();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            COMFlag = !COMFlag;
+            textBox2.Text = "COM Changed";
+            textBox2.Text = COMFlag.ToString();
+
+            
+
+            if (COMFlag == true)
+            {
+                
+                _COMport.ClosePort();
+                //_COMport = new ComPortHandler("COM240", 115200);
+                
+                textBox2.Text = "Closed Port";
+
+            }
+            else if (COMFlag == false) { 
+                
+                _COMport.OpenPort();
+                textBox2.Text = "Opened Port";
+                //_COMport = new ComPortHandler("COM240", 115200);
+            }
 
         }
     }
