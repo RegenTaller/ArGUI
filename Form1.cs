@@ -57,22 +57,8 @@ namespace ArduinoInterface
                 label1.Text = $"Error: {e.Message}"; 
 
             });
-
         }
         
-        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    _COMport.SendData("PD");
-        //    Thread.Sleep(250);
-        //    _COMport.DiscardInBuffer();
-        //    _COMport.DiscardOutBuffer();
-        //    _COMport.ClosePort(); //Close COM port when form closes
-        //    _COMport.DiscardInBuffer();
-        //    _COMport.DiscardOutBuffer();
-        //    Thread.Sleep(250);
-        //    Console.WriteLine("Closed Form");
-        //}
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -84,7 +70,6 @@ namespace ArduinoInterface
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
             if (textBox2.Text == "")
             {
                 messageToSend = "NaN";
@@ -92,46 +77,27 @@ namespace ArduinoInterface
             }
             else { messageToSend = textBox2.Text; }
 
-            //_COMport.DiscardInBuffer();
-            //_COMport.DiscardOutBuffer();
             _COMport.SendData(messageToSend);
             textBox2.Text = "";
             label1.Text = "Sent: " + messageToSend;
 
-
-
-            //_COMport.WriteLine();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.Text = "COM Changed";
             COMFlag = -1*COMFlag;
-            
-            //textBox2.Text = COMFlag.ToString();
-            
+
             if (COMFlag == 1)
             {
-                //_COMport.SendData("PD");
-                //_COMport.DiscardOutBuffer();
-                //_COMport.DiscardInBuffer();
-                //Thread.Sleep(250);
-                //_COMport.DiscardInBuffer();
-                //_COMport.DiscardOutBuffer();
-                //textBox2.Text = "COM Closed";
                 _COMport.ClosePort();
-                //_COMport = new ComPortHandler("COM240", 115200);
-                
                 textBox2.Text = "Closed Port";
-
             }
             else if (COMFlag == -1) { 
                 
                 _COMport.OpenPort();
-                //_COMport.SendData("PD");
                 textBox2.Text = "Opened Port";
                 label1.Text = "COM Opened";
-                //_COMport = new ComPortHandler("COM240", 115200);
             }
 
         }
@@ -143,14 +109,12 @@ namespace ArduinoInterface
 
         private void button3_Click(object sender, EventArgs e)
         {
-         
             _COMport.DiscardInBuffer();
             _COMport.DiscardOutBuffer();
             _COMport.ClosePort();
             Thread.Sleep(250);
             Console.WriteLine("Off");
             Application.Exit();
-
         }
     }
 }

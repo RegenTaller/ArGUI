@@ -24,7 +24,7 @@ public class ComPortHandler
                 _serialPort.Open();
                 _serialPort.DiscardInBuffer();
                 _serialPort.DataReceived += SerialPort_DataReceived;
-                _serialPort.WriteLine("PD");
+                //_serialPort.WriteLine("PD");
             }
             catch (Exception ex)
             {
@@ -38,10 +38,6 @@ public class ComPortHandler
     {
         if (_serialPort.IsOpen)
         {   
-            //_serialPort.DiscardInBuffer();
-            //_serialPort.DiscardOutBuffer();
-            ////Thread.Sleep(550);
-            
             _serialPort.Close();
         }
     }
@@ -56,10 +52,10 @@ public class ComPortHandler
 
     public void DiscardOutBuffer()
     {
-        //if (_serialPort.IsOpen)
-        //{
+        if (_serialPort.IsOpen)
+        {
             _serialPort.DiscardOutBuffer();
-        //}
+        }
     }
 
     private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
