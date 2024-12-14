@@ -85,7 +85,7 @@ namespace ArduinoInterface
             }
             else { messageToSend = textBox2.Text; }
 
-            _COMport.SendData(messageToSend);
+            _COMport.SendData(messageToSend + '\n');
             textBox2.Text = "";
 
             //_COMport.WriteLine();
@@ -116,6 +116,11 @@ namespace ArduinoInterface
                 label1.Text = "COM Opened";
                 //_COMport = new ComPortHandler("COM240", 115200);
             }
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
     }

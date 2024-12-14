@@ -35,6 +35,7 @@ namespace ArduinoInterface
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -47,7 +48,6 @@ namespace ArduinoInterface
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 39);
             this.label1.TabIndex = 0;
-            //this.label1.Text = global::ArduinoInterface.Properties.Settings.Default.COM;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -85,12 +85,21 @@ namespace ArduinoInterface
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(341, 244);
+            this.textBox2.Location = new System.Drawing.Point(340, 266);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox2.Size = new System.Drawing.Size(137, 22);
+            this.textBox2.Size = new System.Drawing.Size(156, 78);
             this.textBox2.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(340, 244);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(156, 23);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Message to Send";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
@@ -98,6 +107,7 @@ namespace ArduinoInterface
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(622, 386);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -118,6 +128,7 @@ namespace ArduinoInterface
         private Button button1;
         private Button button2;
         private TextBox textBox2;
+        private Label label2;
     }
 }
 
