@@ -45,9 +45,11 @@ namespace ArduinoInterface
         private void ComPortHandler_DataR(object sender, string e)
         {
             textBox1.Invoke((MethodInvoker)delegate {
-                //textBox1.Text = textBox1.Text + e;
-                textBox1.AppendText(e+'\n');
-                //textBox1.AppendText();
+
+                if (COMFlag == -1)
+                {
+                    textBox1.AppendText(e + '\n');
+                }
             });
         }
         private void ComPortHandler_ErrorOccurred(object sender, Exception e)
@@ -80,7 +82,6 @@ namespace ArduinoInterface
             _COMport.SendData(messageToSend);
             textBox2.Text = "";
             label1.Text = "Sent: " + messageToSend;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -90,16 +91,18 @@ namespace ArduinoInterface
 
             if (COMFlag == 1)
             {
+                //Thread.Sleep(100);               
                 _COMport.ClosePort();
                 textBox2.Text = "Closed Port";
             }
             else if (COMFlag == -1) { 
                 
                 _COMport.OpenPort();
+                _COMport.DiscardInBuffer();
+                _COMport.DiscardOutBuffer();
                 textBox2.Text = "Opened Port";
                 label1.Text = "COM Opened";
             }
-
         }
 
         private void label2_Click(object sender, EventArgs e)
