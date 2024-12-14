@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Threading;
 
 public class ComPortHandler
 {
@@ -15,24 +16,50 @@ public class ComPortHandler
 
     public void OpenPort()
     {
-        try
+        if (!_serialPort.IsOpen)
         {
-            _serialPort.Open();
-            _serialPort.DataReceived += SerialPort_DataReceived;
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions appropriately (e.g., log error, display message)
-            Console.WriteLine($"Error opening COM port: {ex.Message}");
+            try
+            {
+                //_serialPort.DiscardInBuffer();
+                _serialPort.Open();
+                _serialPort.DiscardInBuffer();
+                _serialPort.DataReceived += SerialPort_DataReceived;
+                _serialPort.WriteLine("PD");
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately (e.g., log error, display message)
+                Console.WriteLine($"Error opening COM port: {ex.Message}");
+            }
         }
     }
 
     public void ClosePort()
     {
         if (_serialPort.IsOpen)
-        {
+        {   
+            //_serialPort.DiscardInBuffer();
+            //_serialPort.DiscardOutBuffer();
+            ////Thread.Sleep(550);
+            
             _serialPort.Close();
         }
+    }
+
+    public void DiscardInBuffer()
+    {
+        if (_serialPort.IsOpen)
+        {
+            _serialPort.DiscardInBuffer();
+        }
+    }
+
+    public void DiscardOutBuffer()
+    {
+        //if (_serialPort.IsOpen)
+        //{
+            _serialPort.DiscardOutBuffer();
+        //}
     }
 
     private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
