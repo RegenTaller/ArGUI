@@ -19,7 +19,7 @@ namespace ArduinoInterface
 
         string messageToSend = "";
 
-        bool COMFlag = true;
+        bool COMFlag = false;
 
         private ComPortHandler _COMport;
         public Form1()
@@ -29,7 +29,6 @@ namespace ArduinoInterface
             _COMport = new ComPortHandler("COM240", 115200);
             _COMport.DataReceived += ComPortHandler_DataR;
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
-
         }
 
         public void Form1_Load(object sender, EventArgs e)
@@ -45,6 +44,7 @@ namespace ArduinoInterface
             //    label1.Text = e;
             //    //label1.Text = e;
             //});
+
             textBox1.Invoke((MethodInvoker)delegate {
                 //textBox1.Text = textBox1.Text + e;
                 textBox1.AppendText(e+'\n');
@@ -113,6 +113,7 @@ namespace ArduinoInterface
                 
                 _COMport.OpenPort();
                 textBox2.Text = "Opened Port";
+                label1.Text = "COM Opened";
                 //_COMport = new ComPortHandler("COM240", 115200);
             }
 

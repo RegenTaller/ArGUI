@@ -47,8 +47,8 @@ namespace ArduinoInterface
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 39);
             this.label1.TabIndex = 0;
-            this.label1.Text = global::ArduinoInterface.Properties.Settings.Default.COM;
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //this.label1.Text = global::ArduinoInterface.Properties.Settings.Default.COM;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox1
@@ -69,7 +69,7 @@ namespace ArduinoInterface
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 44);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
+            this.button1.Text = "Send via COM";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -79,7 +79,7 @@ namespace ArduinoInterface
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 44);
             this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
+            this.button2.Text = "Toggle COM";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
