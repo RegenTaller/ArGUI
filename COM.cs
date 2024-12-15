@@ -10,9 +10,11 @@ public class ComPortHandler
 
     private SerialPort _serialPort;
 
-    public ComPortHandler(string portName, int baudRate)
+    public int BaudRate { get; set; }
+
+    public ComPortHandler(string portName, int BaudRate)
     {
-        _serialPort = new SerialPort(portName, baudRate);
+        _serialPort = new SerialPort(portName, BaudRate);
     }
 
     public void OpenPort()

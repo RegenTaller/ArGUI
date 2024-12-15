@@ -27,7 +27,7 @@ namespace ArduinoInterface
         {
            InitializeComponent();
 
-            _COMport = new ComPortHandler("COM240", 115200);
+            _COMport = new ComPortHandler("COM240", 9600);
             _COMport.DataReceived += ComPortHandler_DataR;
             Console.WriteLine("DATAREAD");
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
@@ -127,6 +127,15 @@ namespace ArduinoInterface
             Thread.Sleep(250);
             Console.WriteLine("Off");
             Application.Exit();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _COMport.ClosePortAsync();
+            //Reconfigure the existing ComPortHandler instance
+            _COMport.BaudRate = 115200;
+            _COMport = new ComPortHandler("COM240", 115200);
+            _COMport.OpenPort();
         }
     }
 }
