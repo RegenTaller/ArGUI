@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO.Ports;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -137,14 +139,16 @@ namespace ArduinoInterface
                 Console.WriteLine("COM Stop Sent");
             }
 
-            _COMport.SendData("COM");
+            int newBaud = 9600;
+
+            _COMport.SendData("COM" + newBaud.ToString());
             await Task.Delay(700);
             Console.WriteLine("COM Stop Sent");
 
             _COMport.ClosePortAsync();
             await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
-            _COMport.BaudRate = 9600;
-            _COMport.BaudRate = 9600;
+            _COMport.BaudRate = newBaud;
+            _COMport.BaudRate = newBaud;
             if (_COMport.OpenPort())
             {
                 label1.Text = "Baud rate changed to 9600.";
@@ -156,21 +160,90 @@ namespace ArduinoInterface
 
         }
 
-        private async void button5_Click_1(object sender, EventArgs e)
-        {
-            Console.WriteLine("115200 Try");
+
+        async void BaudChange(int NewBaud) {
+
+            Console.WriteLine(NewBaud.ToString() + " Try");
             _COMport.ClosePortAsync();
             await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
-            _COMport.BaudRate = 115200;
+            _COMport.BaudRate = NewBaud;
             //_COMport
             if (_COMport.OpenPort())
             {
-                label1.Text = "Baud rate changed to 115200.";
+                label1.Text = "Baud rate changed to " + NewBaud.ToString();
             }
             else
             {
                 MessageBox.Show("Failed to open COM port with new baud rate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
+
+        private async Task ChangeBaudRateAsync(int newBaud)
+        {
+            try
+            {
+                //Send command to Arduino to change baud rate first (if applicable).
+                Console.WriteLine($"COM {newBaud} try");
+                _COMport.SendData($"COM{newBaud}");
+                await Task.Delay(700);
+
+                _COMport.ClosePortAsync();
+                await Task.Delay(500);
+
+                _COMport.BaudRate = newBaud;
+
+                if (_COMport.OpenPort())
+                {
+                    //Use Invoke for thread safety
+                    this.Invoke((MethodInvoker)delegate { label1.Text = $"Baud rate changed to {newBaud}."; });
+                }
+                else
+                {
+                    this.Invoke((MethodInvoker)delegate {
+                        MessageBox.Show($"Failed to open COM port with new baud rate: {_COMport.LastError?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
+            }
+        }
+
+        private async void button5_Click_1(object sender, EventArgs e)
+        {
+            int newBaud;
+            if (int.TryParse(comboBox1.SelectedItem.ToString(), out newBaud))
+            {
+                await ChangeBaudRateAsync(newBaud);
+            }
+            else
+            {
+                MessageBox.Show("Invalid baud rate selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        async void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int NewBaud = 115200;
+            string selectedState = comboBox1.SelectedItem.ToString();
+            int.TryParse(selectedState, out NewBaud);
+            Console.WriteLine(NewBaud);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _COMport.Dispose();
+        }
+
+       
     }
 }

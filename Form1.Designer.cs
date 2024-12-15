@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace ArduinoInterface
 {
@@ -30,6 +31,7 @@ namespace ArduinoInterface
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,15 +41,22 @@ namespace ArduinoInterface
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(15, 347);
+            this.label1.Location = new System.Drawing.Point(14, 349);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 39);
             this.label1.TabIndex = 0;
@@ -56,8 +65,9 @@ namespace ArduinoInterface
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox1.Location = new System.Drawing.Point(15, 244);
+            this.textBox1.Location = new System.Drawing.Point(14, 246);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -68,7 +78,8 @@ namespace ArduinoInterface
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(222, 244);
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button1.Location = new System.Drawing.Point(221, 246);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 44);
             this.button1.TabIndex = 2;
@@ -78,7 +89,8 @@ namespace ArduinoInterface
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(222, 300);
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button2.Location = new System.Drawing.Point(221, 302);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 44);
             this.button2.TabIndex = 3;
@@ -88,7 +100,8 @@ namespace ArduinoInterface
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(340, 266);
+            this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBox2.Location = new System.Drawing.Point(339, 268);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -97,7 +110,8 @@ namespace ArduinoInterface
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(340, 244);
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Location = new System.Drawing.Point(339, 246);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(156, 23);
             this.label2.TabIndex = 5;
@@ -106,7 +120,8 @@ namespace ArduinoInterface
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(535, 351);
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button3.Location = new System.Drawing.Point(531, 349);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 6;
@@ -116,7 +131,9 @@ namespace ArduinoInterface
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(15, 130);
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button4.Location = new System.Drawing.Point(14, 132);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(134, 51);
             this.button4.TabIndex = 7;
@@ -126,20 +143,66 @@ namespace ArduinoInterface
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(179, 130);
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Location = new System.Drawing.Point(138, 14);
+            this.button5.MinimumSize = new System.Drawing.Size(47, 25);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(140, 51);
+            this.button5.Size = new System.Drawing.Size(47, 28);
             this.button5.TabIndex = 8;
-            this.button5.Text = "button5";
+            this.button5.Text = "Apply";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.ItemHeight = 16;
+            this.comboBox1.Items.AddRange(new object[] {
+            "300",
+            "600",
+            "750",
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "19200",
+            "31250",
+            "38400",
+            "57600",
+            "74880",
+            "115200",
+            "230400",
+            "250000",
+            "460800",
+            "500000",
+            "921600",
+            "1000000",
+            "2000000",
+            });
+            this.comboBox1.Location = new System.Drawing.Point(11, 14);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 9;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Size = new System.Drawing.Size(150, 100);
+            this.splitContainer1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(622, 386);
+            this.ClientSize = new System.Drawing.Size(622, 388);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -150,9 +213,15 @@ namespace ArduinoInterface
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.HelpButton = true;
+            this.MinimumSize = new System.Drawing.Size(640, 435);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Padding = new System.Windows.Forms.Padding(2, 2, 4, 4);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "COM Interface";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,6 +238,9 @@ namespace ArduinoInterface
         private Button button3;
         private Button button4;
         private Button button5;
+        private ComboBox comboBox1;
+        private SplitContainer splitContainer1;
+        private BindingSource form1BindingSource;
     }
 }
 

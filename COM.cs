@@ -7,6 +7,7 @@ public class ComPortHandler
 {
     public event EventHandler<string> DataReceived; // Event to signal data received
     public event EventHandler<Exception> ErrorOccurred; //New Event for errors
+    public Exception LastError { get; private set; } // Store the last error
 
     private SerialPort _serialPort;
     private string _portName;
@@ -25,7 +26,6 @@ public class ComPortHandler
 
         _serialPort = new SerialPort(_portName, BaudRate); // Create SerialPort with current BaudRate
 
-
         try
         {
             _serialPort.Open();
@@ -34,8 +34,9 @@ public class ComPortHandler
         }
         catch (Exception ex)
         {
+            LastError = ex; // Store the last error
             ErrorOccurred?.Invoke(this, ex);
-            return false; //Failure
+            return false;
         }
     }
 
@@ -152,4 +153,14 @@ public class ComPortHandler
             ErrorOccurred?.Invoke(this, ex);
         }
     }
+
+    public void Dispose() {
+
+        if (_serialPort.IsOpen)
+        {
+            _serialPort.Dispose();
+        }
+
+    }
+
 }
