@@ -134,30 +134,8 @@ namespace ArduinoInterface
         }
 
         private async void button4_Click(object sender, EventArgs e)
-        {   
-            if (_COMport.B2Read() != 0) {
-                
-                Console.WriteLine("COM Stop Sent");
-            }
-
-            int newBaud = 9600;
-
-            _COMport.SendData("COM" + newBaud.ToString());
-            await Task.Delay(700);
-            Console.WriteLine("COM Stop Sent");
-
-            _COMport.ClosePortAsync();
-            await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
-            _COMport.BaudRate = newBaud;
-            _COMport.BaudRate = newBaud;
-            if (_COMport.OpenPort())
-            {
-                label1.Text = "Baud rate changed to 9600.";
-            }
-            else
-            {
-                MessageBox.Show("Failed to open COM port with new baud rate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        {
+            this.BeginInvoke((MethodInvoker)delegate { textBox1.ResetText(); });
 
         }
 

@@ -133,11 +133,11 @@ namespace ArduinoInterface
             // 
             this.button4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button4.Location = new System.Drawing.Point(14, 132);
+            this.button4.Location = new System.Drawing.Point(14, 217);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(134, 51);
+            this.button4.Size = new System.Drawing.Size(201, 23);
             this.button4.TabIndex = 7;
-            this.button4.Text = "button4";
+            this.button4.Text = "Clear Received Data";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -146,7 +146,7 @@ namespace ArduinoInterface
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button5.Font = new System.Drawing.Font("Lucida Sans Unicode", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Font = new System.Drawing.Font("Lucida Sans Unicode", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.Location = new System.Drawing.Point(107, 14);
             this.button5.Margin = new System.Windows.Forms.Padding(0);
             this.button5.MinimumSize = new System.Drawing.Size(47, 24);
