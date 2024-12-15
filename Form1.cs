@@ -34,6 +34,7 @@ namespace ArduinoInterface
             _COMport.DataReceived += ComPortHandler_DataR;
             Console.WriteLine("DATAREAD");
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
+            this.comboBox1.SelectedItem = "115200";
         }
 
         public void Form1_Load(object sender, EventArgs e)
@@ -215,15 +216,26 @@ namespace ArduinoInterface
 
         private async void button5_Click_1(object sender, EventArgs e)
         {
-            int newBaud;
-            if (int.TryParse(comboBox1.SelectedItem.ToString(), out newBaud))
+            int newBaud = 115200;
+            bool available = true;
+
+            if (comboBox1.SelectedItem != null)
             {
-                await ChangeBaudRateAsync(newBaud);
+                available = int.TryParse(comboBox1.SelectedItem.ToString(), out newBaud);
+
+                if (available)
+                {
+                    await ChangeBaudRateAsync(newBaud);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid baud rate selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
-            else
-            {
-                MessageBox.Show("Invalid baud rate selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            else { label1.Text = "Invalid baud choice"; }
+
+            
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
