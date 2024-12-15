@@ -29,6 +29,7 @@ namespace ArduinoInterface
 
             _COMport = new ComPortHandler("COM240", 115200);
             _COMport.DataReceived += ComPortHandler_DataR;
+            Console.WriteLine("DATAREAD");
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
         }
 
@@ -42,19 +43,22 @@ namespace ArduinoInterface
 
         }
         //Label label1 = new Label();
+        
         private void ComPortHandler_DataR(object sender, string e)
         {
-            textBox1.Invoke((MethodInvoker)delegate {
-
-                if (COMFlag == -1)
+            if (COMFlag == -1)
+            {
+                textBox1.BeginInvoke((MethodInvoker)delegate
                 {
+
                     textBox1.AppendText(e + '\n');
-                }
-            });
+
+                });
+            }
         }
         private void ComPortHandler_ErrorOccurred(object sender, Exception e)
         {
-            label1.Invoke((MethodInvoker)delegate {
+            label1.BeginInvoke((MethodInvoker)delegate {
 
                 label1.Text = $"Error: {e.Message}"; 
 
@@ -88,11 +92,16 @@ namespace ArduinoInterface
         {
             textBox2.Text = "COM Changed";
             COMFlag = -1*COMFlag;
+            while (!(_COMport.B2Read() == 0 && _COMport.B2Write() == 0))
+            {
+                _COMport.DiscardInBuffer();
+                _COMport.DiscardOutBuffer();
+            }
 
             if (COMFlag == 1)
-            {
-                //Thread.Sleep(100);               
-                _COMport.ClosePort();
+            {          
+                //_COMport.ClosePort();
+                _COMport.ClosePortAsync();
                 textBox2.Text = "Closed Port";
             }
             else if (COMFlag == -1) { 
