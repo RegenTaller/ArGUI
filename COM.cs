@@ -9,37 +9,63 @@ public class ComPortHandler
     public event EventHandler<Exception> ErrorOccurred; //New Event for errors
 
     private SerialPort _serialPort;
-
+    private string _portName;
     public int BaudRate { get; set; }
 
-    public ComPortHandler(string portName, int BaudRate)
+    public ComPortHandler(string portName) //Constructor without BaudRate
     {
-        _serialPort = new SerialPort(portName, BaudRate);
+        _portName = portName;
     }
 
-    public void OpenPort()
+    public bool OpenPort()
     {
-        if (!_serialPort.IsOpen)
+        if (_serialPort != null && _serialPort.IsOpen) return true; //Already open
+
+        if (_serialPort != null) _serialPort.Dispose(); //Dispose of existing serialport
+
+        _serialPort = new SerialPort(_portName, BaudRate); // Create SerialPort with current BaudRate
+
+
+        try
         {
-            
+            _serialPort.Open();
+            _serialPort.DataReceived += SerialPort_DataReceived;
+            return true; //Success
+        }
+        catch (Exception ex)
+        {
+            ErrorOccurred?.Invoke(this, ex);
+            return false; //Failure
+        }
+    }
+
+    public void ClosePort()
+    {
+        if (_serialPort != null && _serialPort.IsOpen)
+        {
             try
             {
-                //_serialPort.DiscardInBuffer();
-                _serialPort.Open();
-                while (!(_serialPort.BytesToRead == 0 && _serialPort.BytesToWrite == 0))
-                {
-                    _serialPort.DiscardInBuffer();
-                    Console.WriteLine("CLEANED");
-                    _serialPort.DiscardOutBuffer();
-                }
-                _serialPort.DiscardInBuffer();
-                _serialPort.DataReceived += SerialPort_DataReceived;
-                //_serialPort.WriteLine("PD");
+                _serialPort.DataReceived -= SerialPort_DataReceived;
+                _serialPort.Close();
+                if (_serialPort != null) _serialPort.Dispose();
             }
             catch (Exception ex)
             {
-                // Handle exceptions appropriately (e.g., log error, display message)
-                Console.WriteLine($"Error opening COM port: {ex.Message}");
+                ErrorOccurred?.Invoke(this, ex);
+            }
+        }
+    }
+    public async void ClosePortAsync()
+    {
+        if (_serialPort != null && _serialPort.IsOpen)
+        {
+            try
+            {
+                await Task.Run(() => ClosePort());
+            }
+            catch (Exception ex)
+            {
+                ErrorOccurred?.Invoke(this, ex);
             }
         }
     }
@@ -68,25 +94,6 @@ public class ComPortHandler
         
 
     }
-    public void ClosePort()
-    {
-        if (_serialPort.IsOpen)
-        {
-            while (!(_serialPort.BytesToRead == 0 && _serialPort.BytesToWrite == 0))
-            {
-                _serialPort.DiscardInBuffer();
-                _serialPort.DiscardOutBuffer();
-            }
-            if (_serialPort.IsOpen)
-            {
-                _serialPort.DataReceived -= SerialPort_DataReceived;
-                _serialPort.ErrorReceived -= SerialPort_ErrorReceived;
-                _serialPort.BaseStream.Close();
-                _serialPort.Close();
-            }
-            _serialPort.Close();
-        }
-    }
 
     public void DiscardInBuffer()
     {
@@ -109,20 +116,6 @@ public class ComPortHandler
         //Do the more interesting handling of the receivedBytes list here.
     }
 
-    public async void ClosePortAsync()
-    {
-        if (_serialPort.IsOpen)
-        {
-            try
-            {
-                await Task.Run(() => _serialPort.Close()); //Асинхронное закрытие
-            }
-            catch (Exception ex)
-            {
-                ErrorOccurred?.Invoke(this, ex);
-            }
-        }
-    }
     private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
     {
         try

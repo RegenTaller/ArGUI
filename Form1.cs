@@ -27,7 +27,8 @@ namespace ArduinoInterface
         {
            InitializeComponent();
 
-            _COMport = new ComPortHandler("COM240", 9600);
+            _COMport = new ComPortHandler("COM240");
+            _COMport.BaudRate = 115200;
             _COMport.DataReceived += ComPortHandler_DataR;
             Console.WriteLine("DATAREAD");
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
@@ -129,13 +130,47 @@ namespace ArduinoInterface
             Application.Exit();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
+        private async void button4_Click(object sender, EventArgs e)
+        {   
+            if (_COMport.B2Read() != 0) {
+                
+                Console.WriteLine("COM Stop Sent");
+            }
+
+            _COMport.SendData("COM");
+            await Task.Delay(700);
+            Console.WriteLine("COM Stop Sent");
+
             _COMport.ClosePortAsync();
-            //Reconfigure the existing ComPortHandler instance
+            await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
+            _COMport.BaudRate = 9600;
+            _COMport.BaudRate = 9600;
+            if (_COMport.OpenPort())
+            {
+                label1.Text = "Baud rate changed to 9600.";
+            }
+            else
+            {
+                MessageBox.Show("Failed to open COM port with new baud rate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private async void button5_Click_1(object sender, EventArgs e)
+        {
+            Console.WriteLine("115200 Try");
+            _COMport.ClosePortAsync();
+            await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
             _COMport.BaudRate = 115200;
-            _COMport = new ComPortHandler("COM240", 115200);
-            _COMport.OpenPort();
+            //_COMport
+            if (_COMport.OpenPort())
+            {
+                label1.Text = "Baud rate changed to 115200.";
+            }
+            else
+            {
+                MessageBox.Show("Failed to open COM port with new baud rate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
