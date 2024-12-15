@@ -145,11 +145,12 @@ namespace ArduinoInterface
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.Location = new System.Drawing.Point(138, 14);
-            this.button5.MinimumSize = new System.Drawing.Size(47, 25);
+            this.button5.MinimumSize = new System.Drawing.Size(47, 24);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(47, 28);
+            this.button5.Size = new System.Drawing.Size(47, 24);
             this.button5.TabIndex = 8;
             this.button5.Text = "Apply";
             this.button5.UseVisualStyleBackColor = true;
@@ -161,6 +162,7 @@ namespace ArduinoInterface
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ItemHeight = 16;
+
             this.comboBox1.Items.AddRange(new object[] {
             "300",
             "600",
@@ -181,14 +183,15 @@ namespace ArduinoInterface
             "500000",
             "921600",
             "1000000",
-            "2000000",
-            });
+            "2000000"});
+
             this.comboBox1.Location = new System.Drawing.Point(11, 14);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 9;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.SelectedIndex = 12;
+            this.comboBox1.Text = "115200";
             // 
             // splitContainer1
             // 
