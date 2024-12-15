@@ -50,16 +50,14 @@ namespace ArduinoInterface
         
         private void ComPortHandler_DataR(object sender, string e)
         {
-            if (COMFlag == -1)
-            {
-                textBox1.BeginInvoke((MethodInvoker)delegate
+            textBox1.Invoke((MethodInvoker)delegate {
+                if (COMFlag == -1)
                 {
-
                     textBox1.AppendText(e + '\n');
-
-                });
-            }
+                }
+            });
         }
+
         private void ComPortHandler_ErrorOccurred(object sender, Exception e)
         {
             label1.BeginInvoke((MethodInvoker)delegate {
@@ -95,7 +93,7 @@ namespace ArduinoInterface
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.Text = "COM Changed";
-            COMFlag = -1*COMFlag;
+            COMFlag = -1 * COMFlag;
             while (!(_COMport.B2Read() == 0 && _COMport.B2Write() == 0))
             {
                 _COMport.DiscardInBuffer();
@@ -103,19 +101,21 @@ namespace ArduinoInterface
             }
 
             if (COMFlag == 1)
-            {          
+            {
                 //_COMport.ClosePort();
                 _COMport.ClosePortAsync();
                 textBox2.Text = "Closed Port";
             }
-            else if (COMFlag == -1) { 
-                
+            else if (COMFlag == -1)
+            {
+
                 _COMport.OpenPort();
                 _COMport.DiscardInBuffer();
                 _COMport.DiscardOutBuffer();
                 textBox2.Text = "Opened Port";
                 label1.Text = "COM Opened";
             }
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace ArduinoInterface
             Application.Exit();
         }
 
-        private async void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate { textBox1.ResetText(); });
 

@@ -13,6 +13,8 @@ public class ComPortHandler
     private string _portName;
     public int BaudRate { get; set; }
 
+     //Variable to store last complete message
+
     public ComPortHandler(string portName) //Constructor without BaudRate
     {
         _portName = portName;
@@ -141,6 +143,7 @@ public class ComPortHandler
             if (_serialPort.IsOpen)
             {
                 _serialPort.WriteLine(data);
+
             }
             else
             {
