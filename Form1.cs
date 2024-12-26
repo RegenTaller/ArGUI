@@ -29,7 +29,8 @@ namespace ArduinoInterface
         {
            InitializeComponent();
 
-            _COMport = new ComPortHandler("COM240");
+            _COMport = new ComPortHandler();
+            _COMport.PortName = "COM240";
             _COMport.BaudRate = 115200;
             _COMport.DataReceived += ComPortHandler_DataR;
             Console.WriteLine("DATAREAD");
@@ -76,7 +77,7 @@ namespace ArduinoInterface
         {
 
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //Sending a message
         {
             if (textBox2.Text == "")
             {
@@ -90,9 +91,9 @@ namespace ArduinoInterface
             label1.Text = "Sent: " + messageToSend;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)//Toggle COM
         {
-            textBox2.Text = "COM Changed";
+            textBox2.Text = $"{_COMport.PortName} toggled";
             COMFlag = -1 * COMFlag;
             while (!(_COMport.B2Read() == 0 && _COMport.B2Write() == 0))
             {
@@ -104,7 +105,9 @@ namespace ArduinoInterface
             {
                 //_COMport.ClosePort();
                 _COMport.ClosePortAsync();
-                textBox2.Text = "Closed Port";
+                textBox2.Text = $"Closed Port {_COMport.PortName}";
+                await Task.Delay(2000);
+                textBox2.Text = "";
             }
             else if (COMFlag == -1)
             {
@@ -112,8 +115,11 @@ namespace ArduinoInterface
                 _COMport.OpenPort();
                 _COMport.DiscardInBuffer();
                 _COMport.DiscardOutBuffer();
-                textBox2.Text = "Opened Port";
-                label1.Text = "COM Opened";
+                textBox2.Text = $"Opened Port {_COMport.PortName}";
+                label1.Text = $"{_COMport.PortName} Opened";
+                await Task.Delay(2000);
+                textBox2.Text = "";
+
             }
 
         }
@@ -133,7 +139,7 @@ namespace ArduinoInterface
             Application.Exit();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) //Clear received
         {
             this.BeginInvoke((MethodInvoker)delegate { textBox1.ResetText(); });
 
@@ -144,7 +150,7 @@ namespace ArduinoInterface
 
             Console.WriteLine(NewBaud.ToString() + " Try");
             _COMport.ClosePortAsync();
-            await Task.Delay(500); // Wait 200 milliseconds (adjust as needed
+            await Task.Delay(500); // Wait 500 milliseconds
             _COMport.BaudRate = NewBaud;
             //_COMport
             if (_COMport.OpenPort())
@@ -158,6 +164,39 @@ namespace ArduinoInterface
 
         }
 
+        private async Task ChangePORTAsync(string newPort)
+        {
+            try
+            {
+                //Send command to Arduino to change baud rate first (if applicable).
+                Console.WriteLine($"COM {newPort} try");
+                //_COMport.SendData($"COM{newPort}");
+                await Task.Delay(700);
+
+                _COMport.ClosePortAsync();
+                await Task.Delay(500);
+
+                _COMport.PortName = newPort;
+
+                if (_COMport.OpenPort())
+                {
+                    //Use Invoke for thread safety
+                    this.Invoke((MethodInvoker)delegate { label1.Text = $"Switched to {newPort}."; });
+                }
+                else
+                {
+                    this.Invoke((MethodInvoker)delegate {
+                        MessageBox.Show($"Failed to open COM port: {_COMport.LastError?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
+            }
+        }
         private async Task ChangeBaudRateAsync(int newBaud)
         {
             try
@@ -212,7 +251,6 @@ namespace ArduinoInterface
 
             }
             else { label1.Text = "Invalid baud choice"; }
-
             
         }
 
@@ -234,6 +272,41 @@ namespace ArduinoInterface
             _COMport.Dispose();
         }
 
-       
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private async void button6_Click(object sender, EventArgs e)
+        {
+            string newport = "COM240";
+            bool available = true;
+
+            if (textBox3.Text != null)
+            {
+                
+                newport = textBox3.Text.ToString();
+                int newportint = 0;
+                string newPortString = "COM" + newport;
+                available = int.TryParse(newport, out newportint);
+
+                if (available)
+                {
+                    await ChangePORTAsync(newPortString);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid PORT selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else { label1.Text = "Invalid PORT choice"; }
+
+        }
     }
 }

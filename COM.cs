@@ -12,12 +12,13 @@ public class ComPortHandler
     private SerialPort _serialPort;
     private string _portName;
     public int BaudRate { get; set; }
+    public string PortName { get; set; }
 
-     //Variable to store last complete message
+    //Variable to store last complete message
 
-    public ComPortHandler(string portName) //Constructor without BaudRate
+    public ComPortHandler() //Constructor
     {
-        _portName = portName;
+        //_portName = portName;
     }
 
     public bool OpenPort()
@@ -26,7 +27,7 @@ public class ComPortHandler
 
         if (_serialPort != null) _serialPort.Dispose(); //Dispose of existing serialport
 
-        _serialPort = new SerialPort(_portName, BaudRate); // Create SerialPort with current BaudRate
+        _serialPort = new SerialPort(PortName, BaudRate); // Create SerialPort with current BaudRate and PortName
 
         try
         {
