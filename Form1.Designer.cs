@@ -47,6 +47,7 @@ namespace ArduinoInterface
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
@@ -151,7 +152,7 @@ namespace ArduinoInterface
             this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button5.Font = new System.Drawing.Font("Lucida Sans Unicode", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(107, 14);
+            this.button5.Location = new System.Drawing.Point(110, 16);
             this.button5.Margin = new System.Windows.Forms.Padding(0);
             this.button5.MinimumSize = new System.Drawing.Size(47, 24);
             this.button5.Name = "button5";
@@ -189,7 +190,7 @@ namespace ArduinoInterface
             "921600",
             "1000000",
             "2000000"});
-            this.comboBox1.Location = new System.Drawing.Point(11, 14);
+            this.comboBox1.Location = new System.Drawing.Point(14, 16);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(93, 28);
             this.comboBox1.TabIndex = 9;
@@ -205,7 +206,7 @@ namespace ArduinoInterface
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(11, 48);
+            this.textBox3.Location = new System.Drawing.Point(14, 48);
             this.textBox3.MinimumSize = new System.Drawing.Size(93, 24);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(93, 24);
@@ -218,7 +219,7 @@ namespace ArduinoInterface
             this.button6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button6.Font = new System.Drawing.Font("Lucida Sans Unicode", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.Location = new System.Drawing.Point(107, 46);
+            this.button6.Location = new System.Drawing.Point(110, 44);
             this.button6.Margin = new System.Windows.Forms.Padding(0);
             this.button6.MinimumSize = new System.Drawing.Size(47, 24);
             this.button6.Name = "button6";
@@ -228,12 +229,24 @@ namespace ArduinoInterface
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // label3
+            // 
+            this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label3.Location = new System.Drawing.Point(11, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 21);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "COM number";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(622, 388);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.comboBox1);
@@ -279,6 +292,7 @@ namespace ArduinoInterface
         private BindingSource form1BindingSource;
         private TextBox textBox3;
         private Button button6;
+        private Label label3;
     }
 }
 

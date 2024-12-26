@@ -308,5 +308,10 @@ namespace ArduinoInterface
             else { label1.Text = "Invalid PORT choice"; }
 
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
