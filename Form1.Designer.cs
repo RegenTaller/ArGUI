@@ -5,6 +5,7 @@ namespace ArduinoInterface
 {
     public partial class Form1
     {
+
         /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
@@ -205,6 +206,7 @@ namespace ArduinoInterface
             // 
             // textBox3
             // 
+            this.textBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox3.Location = new System.Drawing.Point(14, 48);
             this.textBox3.MinimumSize = new System.Drawing.Size(93, 24);
@@ -231,6 +233,7 @@ namespace ArduinoInterface
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label3.Location = new System.Drawing.Point(11, 75);
             this.label3.Name = "label3";
@@ -244,8 +247,7 @@ namespace ArduinoInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(622, 388);
+            this.ClientSize = new System.Drawing.Size(622, 403);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox3);
@@ -275,6 +277,8 @@ namespace ArduinoInterface
             this.PerformLayout();
 
         }
+
+        
 
         #endregion
 

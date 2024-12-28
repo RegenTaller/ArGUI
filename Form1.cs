@@ -36,7 +36,21 @@ namespace ArduinoInterface
             Console.WriteLine("DATAREAD");
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
             this.comboBox1.SelectedItem = "115200";
+            Resize += Form1_Resize;
+            
+
         }
+
+
+        public double koeff;
+        public int FormHeight;
+        public int textBoxHeight;
+
+        public int textBox2Height;
+
+        public int button2ToggleY;
+
+        public int label1Y;
 
         public void Form1_Load(object sender, EventArgs e)
         {
@@ -44,11 +58,45 @@ namespace ArduinoInterface
             Thread.Sleep(250);
             _COMport.DiscardInBuffer();
             _COMport.DiscardOutBuffer();
-            _COMport.SendData("PD");
+            //_COMport.SendData("PD");
+
+            koeff = ((double)textBox1.Height / (double)this.Height) + 0.03;
+            //koeff = (double)1/(double)3;
+            //System.Console.WriteLine($"{this.Height} + VISOTA + {textBox1.Height} + {koeff}");
+            //label1.Text = $"{this.Height} + {koeff}";
+            FormHeight = this.Height;
+
+            textBoxHeight = textBox1.Height;
+            textBox2Height = textBox2.Height;
+            
+            button2ToggleY = button2.Location.Y;
+            label1Y = label1.Location.Y;
+            
+
+    }
+
+        //private void Form1_Resize(object sender, EventArgs e)
+        //{
+        //    textBox1.Text = "";
+        //    textBox2.Text = "";
+        //    textBox3.Text = "";
+        //    textBox4.Text = "";
+        //    textBox5.Text = "";
+        //}
+        private async void Form1_Resize(object sender, System.EventArgs e)
+        {
+            int newHeight = (this.Height - FormHeight);
+            textBox1.Size = new System.Drawing.Size(textBox1.Width, textBoxHeight + newHeight);
+            textBox2.Size = new System.Drawing.Size(textBox2.Width, textBox2Height + newHeight);
+            
+            
+            Control control = (Control)sender;
+            button2.Location = new System.Drawing.Point(button2.Location.X, button2ToggleY + newHeight);
+            this.label1.Location = new System.Drawing.Point(label1.Location.X, label1Y + newHeight);
 
         }
         //Label label1 = new Label();
-        
+
         private void ComPortHandler_DataR(object sender, string e)
         {
             textBox1.Invoke((MethodInvoker)delegate {
@@ -313,5 +361,12 @@ namespace ArduinoInterface
         {
 
         }
+
+        //private void Form1_SizeChanged(object sender, EventArgs e)
+        //{
+        //    int w = (int)this.ClientSize.Width; // ширина окна            
+        //    int h = (int)this.ClientSize.Height; // высота окна
+        //    _ = new System.Drawing.Size(w / 4, h / 4)
+        //}
     }
 }
