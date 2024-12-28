@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO.Ports;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace ArduinoInterface
         int COMFlag = -1;
 
         private ComPortHandler _COMport;
+
+        private Bitmap _buffer;
+        private Graphics _graphics;
         public Form1()
         {
            InitializeComponent();
@@ -37,10 +41,16 @@ namespace ArduinoInterface
             _COMport.ErrorOccurred += ComPortHandler_ErrorOccurred;
             this.comboBox1.SelectedItem = "115200";
             Resize += Form1_Resize;
-            
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            //SetStyle(ControlStyles.Opaque, true);
+
+            this.BackColor = Color.FromName("GhostWhite");
+            //button1.BackColor = Color.FromName("WhiteSmoke");
+            //button2.BackColor = Color.FromName("WhiteSmoke");
+            //button3.BackColor = Color.FromName("WhiteSmoke");
+            button4.BackColor = Color.FromName("WhiteSmoke");
 
         }
-
 
         public double koeff;
         public int FormHeight;
