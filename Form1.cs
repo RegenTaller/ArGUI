@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ArduinoInterface
-
 
 {
     public partial class Form1 : Form
@@ -49,6 +49,7 @@ namespace ArduinoInterface
             //button2.BackColor = Color.FromName("WhiteSmoke");
             //button3.BackColor = Color.FromName("WhiteSmoke");
             button4.BackColor = Color.FromName("WhiteSmoke");
+            button7.BackColor = Color.FromName("WhiteSmoke");
 
         }
 
@@ -115,6 +116,23 @@ namespace ArduinoInterface
                     textBox1.AppendText(e + '\n');
                 }
             });
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBox1.BeginInvoke((MethodInvoker)delegate
+            {
+
+                string path = Directory.GetCurrentDirectory();
+                path = path + "\\Test1.txt";
+                StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
+                //Writeout the numbers 1 to 10 on the same line.
+
+                sw.Write(textBox1.Text);
+                sw.Close();
+                //await Task.Delay(50);
+            });
+
         }
 
         private void ComPortHandler_ErrorOccurred(object sender, Exception e)
@@ -202,7 +220,6 @@ namespace ArduinoInterface
             this.BeginInvoke((MethodInvoker)delegate { textBox1.ResetText(); });
 
         }
-
 
         async void BaudChange(int NewBaud) {
 

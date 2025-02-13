@@ -49,6 +49,7 @@ namespace ArduinoInterface
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
@@ -139,12 +140,13 @@ namespace ArduinoInterface
             // 
             this.button4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button4.BackColor = System.Drawing.SystemColors.Control;
             this.button4.Location = new System.Drawing.Point(14, 217);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(201, 23);
             this.button4.TabIndex = 7;
             this.button4.Text = "Clear Received Data";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
@@ -243,11 +245,24 @@ namespace ArduinoInterface
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // button7
+            // 
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button7.Location = new System.Drawing.Point(14, 188);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(201, 23);
+            this.button7.TabIndex = 13;
+            this.button7.Text = "Save to .txt";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 403);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox3);
@@ -297,6 +312,7 @@ namespace ArduinoInterface
         private TextBox textBox3;
         private Button button6;
         private Label label3;
+        private Button button7;
     }
 }
 
