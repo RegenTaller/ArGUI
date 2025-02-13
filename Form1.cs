@@ -127,7 +127,7 @@ namespace ArduinoInterface
                 path = path + "\\Test1.txt";
                 StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
                 //Writeout the numbers 1 to 10 on the same line.
-
+             
                 sw.Write(textBox1.Text);
                 sw.Close();
                 //await Task.Delay(50);
