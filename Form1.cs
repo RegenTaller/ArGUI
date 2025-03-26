@@ -113,7 +113,9 @@ namespace ArduinoInterface
             textBox1.Invoke((MethodInvoker)delegate {
                 if (COMFlag == -1)
                 {
-                    textBox1.AppendText(e + '\n');
+                    long currentMilliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                    String millis = (currentMilliseconds - 1743020000000).ToString();
+                    textBox1.AppendText(millis + "," + e + '\n');
                 }
             });
         }
