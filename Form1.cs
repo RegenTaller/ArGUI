@@ -63,6 +63,8 @@ namespace ArduinoInterface
 
         public int label1Y;
 
+        public bool SysTimeFlag = false; 
+
         public void Form1_Load(object sender, EventArgs e)
         {
             _COMport.OpenPort(); //Open the COM port when form loads
@@ -115,7 +117,10 @@ namespace ArduinoInterface
                 {
                     long currentMilliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                     String millis = (currentMilliseconds - 1743020000000).ToString();
-                    textBox1.AppendText(millis + "," + e + '\n');
+                    if (SysTimeFlag == true)
+                    {
+                        textBox1.AppendText(millis + "," + e + '\n');
+                    }else { textBox1.AppendText(e + '\n'); }
                 }
             });
         }
@@ -389,6 +394,11 @@ namespace ArduinoInterface
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SysTimeFlag = !SysTimeFlag;
         }
 
         //private void Form1_SizeChanged(object sender, EventArgs e)
